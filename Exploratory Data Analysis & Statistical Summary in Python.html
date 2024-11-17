@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploratory Data Analysis dan Statistical Summary Menggunakan Python</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="Judul">Exploratory Data Analysis dan Statistical Summary Menggunakan Python</h1>
+        </div>
+<style>
+    
+body{
+    background-color: #fff;
+}
+
+.container{
+    background-color: #fff;
+    padding-top: 4%;
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-bottom: 3%;
+}
+
+.container .header{
+    color: black;
+}
+
+.Judul{
+    font-size: 38px;
+    text-align: left;
+    font-weight: bolder;
+    margin: 1%;
+    font-family: Calibri, Arial, sans-serif;
+}
+
+.content-box{
+    max-width: 90vw;
+    min-width: 20%;
+    border: 0.1vw solid #4471C4;
+    background-color: #fff;
+    box-shadow: 0.4vw 0.4vw 1.5vw rgba(0, 0, 0, 0.1);
+    font-family: Calibri, Arial, sans-serif;
+    margin-left: 1%;
+    margin-bottom: 3%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 1%;
+    text-align: justify;
+}
+
+.content-box h2{
+    font-size: xx-large;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: inline-flex;
+    align-content: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 90vw;
+}
+
+.content-box ul{
+    list-style-type: square;
+    padding-left: 2%;
+    margin-left: 1%;
+    font-size: 16px;
+    line-height: 2.5;
+    max-width: 90vw;
+}
+
+.content-box ul li{
+    max-width: 90vw;
+}
+
+.top-box{
+    margin-bottom: 0.5%;
+    max-width: 90vw;
+}
+
+.no-bullets{
+    list-style-type: none;
+    padding-left: 0;
+    max-width: 90vw;
+}
+
+.no-bullets ul{
+    padding-left: 3%; /* Menambahkan indentasi untuk daftar bersarang */
+    max-width: 90vw;
+}
+
+.note-box{
+    display: flex;
+    max-width: 90vw;
+    height: auto;
+    padding: 1%;
+    border-radius: 1vw;
+    border: 0.1vw solid #000;
+    background-color: #CFE1F3; /* Warna latar belakang seperti catatan */
+    box-shadow: 0.3vw 0.3vw 1vw rgba(0, 0, 0, 0.1);
+    font-family: Calibri, Arial, sans-serif;
+    position: relative;
+}
+
+.note-box span{
+    margin-top: 0%;
+    font-size: 1.6vw;
+    font-family: calibri, Arial, sans-serif;
+    text-align: justify;
+    max-width: 90vw;
+    font-weight: bolder;
+}
+
+.note-box h1{
+    margin-top: 0;
+    max-width: fit-content;
+    font-size: 30px;
+    font-family: Calibri, Arial, sans-serif;
+    text-align: justify;
+}
+
+.note-box p{
+    margin: 0;
+    max-width: 90vw;
+    font-size: 1.4vw;
+    font-family: Calibri, Arial, sans-serif;
+    text-align: justify;
+}
+/* Style for h1 */
+h1{
+    font-size: 36px; /* Ukuran font 18 */
+    font-weight: bolder;
+    font-family: Calibri, Arial, sans-serif;
+    color: #1f2855;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    margin-right: 1%;
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    text-align: justify;
+    max-width: 90vw;
+}
+/* Style for h2 */
+h2{
+    font-size: 16px; /* Ukuran font 16 */
+    font-weight: bolder;
+    font-family: Calibri, Arial, sans-serif;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    margin-right: 1%;
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    text-align: justify;
+    max-width: 90vw;
+}
+/*Style for h3 */
+h3 {
+    font-size: 14px; /* Ukuran font 14 */
+    font-weight: bolder;
+    font-family: calibri, Arial, sans-serif;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    margin-right: 1%;
+    line-height: 1.5; /*Jarak spasi 1/5 */
+    text-align: justify;
+    max-width: 90vw;
+}
+/* Style for p */
+p{
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 18px; /* Ukuran font 18 */
+    text-align: justify;
+    margin-right: 1%;
+    margin-left: 1%;
+    max-width: 90vw;
+}
+/* Style for ul and ol */
+ul, ol{
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    list-style-type: decimal;
+    font-size: 18px; /* Ukuran font 18 */
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 5%;
+    font-family: Calibri, Arial, sans-serif;
+    text-align: justify;
+    max-width: 90vw;
+}
+/* Style for li */
+li{
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    font-family: Calibri, Arial, sans-serif;
+    text-align: justify;
+    margin-right: 1%;
+    max-width: 90vw;
+}
+
+.small-text{
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    font-family: Calibri, Arial, sans-serif;
+    text-align: center;
+    font-size: 1vw;
+}
+
+.large-text {
+    line-height: 1.5; /* Jarak Spasi 1.5 */
+    font-family: Calibri, Arial, sans-serif;
+    text-align: center;
+    font-size: 1.2vw;
+    font-weight: bolder;
+    vertical-align: top;
+}
+
+.Tools{
+    max-width: 85%;
+    height: auto;
+    display: block;
+    margin-left: 30%;
+    margin-top: 15pt;
+    margin-bottom: 15pt;
+}
+
+.Tipe{
+    max-width: 85%;
+    height: auto;
+    display: block;
+    margin-left: 0%;
+    margin-top: 15pt;
+    margin-bottom: 15pt;
+}
+
+.pic {
+    display: block;
+    margin: 0;
+    padding: 20px;
+    height: auto;
+}
+
+iframe{
+    max-width: 100%;
+    min-height: auto;
+    margin-top: 1%;
+    margin-bottom: 1.5%;
+    margin-right: 1%;
+    margin-left: 2%;
+    border: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+table, th, td {
+    border: 0.1vw solid black;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    font-size: 1.2vw;
+}
+th {
+    background-color: #2796a3; /* Warna Latar Belakang untuk Baris Pertama */
+    color: white;
+    text-align: center;
+    font-size: 1.2vw;
+}
+tr:hover {
+    background-color: beige;
+}
+
+font {
+    max-width: 100%;
+}
+
+.kotak {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: left;
+    border: 5px solid #ccc;
+    border-radius: 10px;
+    padding: 1.5vw;
+    line-height: 1.5;
+    width: 80%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 5%;
+    background-color: grey;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.teks-tomato{
+    color: tomato;
+    font-weight: bold;
+}
+
+.teks-skyblue{
+    color: skyblue;
+    font-weight: bold;
+}
+
+.teks-sandybrown{
+    color: sandybrown;
+    font-weight: bold;
+}
+
+.garis-bawah{
+        text-decoration: none; /*menghilangkan garis bawah bawaan*/
+        text-decoration-thickness: 1px; /*ketebalan teks*/
+        border-bottom: 1px solid black; /*garis di bawah teks*/
+        padding-bottom: 1px; /*jarak antara teks dan garis bawah*/
+}
+
+</style>
+
+<div class="content-box"> <!-- Berisi Poin-poin Konten-->
+    <h2>
+        <img src="https://drive.google.com/thumbnail?id=1OSwy6Vn5jv8ERj5uV-d5abA8LFGNXV9x" alt="Content Image" style="vertical-align: middle; margin-right: 10px; width: 60px; height: 50px; padding-top: 10px;">Content
+    </h2>
+    <ul class="no-bullets" style="color: blue;">
+        <li><a href="#intro-explor-data-analysis" style="color: blue;">Introduction to Exploratory Data Analysis</a></li>
+        <li><a href="#histo-plot" style="color: blue;">Histogram Plot</a></li>
+        <li><a href="#seaborn-styling" style="color: blue;">Seaborn dan Mengatur Seaborn Styling</a></li>
+        <li><a href="#bee-swarm-plot" style="color: blue;">Bee Swarm Plot</a></li>
+        <li><a href="#ecdf" style="color: blue;">Empirical Cumulative Distribution Function (ECDF)</a></li>
+        <li><a href="#ringkasan-statistik" style="color: blue;">Mengenal Ringkasan Statistik</a></li>
+        <ul style="list-style-type: disc;">
+            <li><a href="#rata-rata">Rata-Rata</a></li>
+            <li><a href="#median">Median</a></li>
+            <li><a href="#inter-quartile-range">Inter Quartile Range dan Percentile pada ECDF</a></li>
+            <li><a href="#outlier">Outlier</a></li>
+            <li><a href="#variansi-standar-deviasi">Variansi dan Standar Deviasi</a></li>
+            <li><a href="#kovariansi">Kovariansi</a></li>
+            <li><a href="#pearson-correlation">Pearson Correlation Coefficient</a></li>
+        </ul>
+        <li><a href="#box-plot" style="color: blue;">Box Plot</a></li> 
+    </ul>
+     
+</div>
+
+<div class="content">
+    
+    <!--intro-explor-data-analysis-->
+    <h1 id="intro-explor-data-analysis" style="margin-left: 1%;">Introduction to Exploratory Data Analysis</h1>
+    <p>
+        <b>Exploratory data analysis adalah suatu proses uji investigasi awal yang bertujuan untuk mengidentifikasi pola, menemukan anomali, menguji hipotesis dan memeriksa asumsi</b>. 
+        Dengan melakukan Exploratory Data Analysis (EDA), pengguna akan sangat terbantu dalam mendeteksi kesalahan dari awal, dapat mengidentifikasi outlier, mengetahui hubungan antar data serta dapat menggali faktor-faktor penting dari data.
+    </p>
+    <p>Proses EDA ini sangat bermanfaat dalam proses analisis statistik. Salah satu contoh EDA proses mengatur, merencanakan, dan meringkas kumpulan data dituliskan dalam kode di bawah ini:</p>
+    <p class="kotak" style="color: #fff;">
+        # import library
+        <br><span class="teks-sandybrown">import pandas as pd</span>
+        <br># load data dengan pandas
+        <br><span class="teks-skyblue">df_swing = pd.read.csv('2008_swing_states.csv')</span>
+        <br># load data kolom tertentu
+        <br><span class="teks-sandybrown">df_swing[['state', 'country', 'dem_share']]</span>
+    </p>
+    <p>Output kode di atas adalah sebagai berikut:</p>
+    <iframe src="https://drive.google.com/file/d/1F7YWuXrYuI1dXfv8x3nbc2gixcCcN3US/preview" width="55%" height="310px" frame-border="0" alt="Gambar 1"></iframe>
+
+    
+    <!--histo-plot-->
+    <h1 id="histo-plot" style="margin-left: 1%;">Histogram Plot</h1>
+    <p>
+        <b>Histogram adalah grafik yang digunakan untuk menampilkan distribusi frekuensi dari sebuah data</b>. Artinya, histogram menunjukkan berapa banyak nilai data yang berada dalam rentang atau interval tertentu. 
+        Setiap batang (bar) dalam histogram mewakili jumlah data yang jatuh dalam suatu rentang.
+    </p>
+    <p>
+        Histogram sangat berguna untuk melihat pola distribusi data, misalnya apakah data tersebut tersebar merata, cenderung ke satu sisi (skewed), atau memiliki beberapa puncak (bimodal).  
+        Untuk membuat grafik histogram pada python dapat menggunakan kode di bawah ini:
+    </p>
+    <p class="kotak" style="color: #fff;">
+        # generating a histogram
+        <br><span class="teks-skyblue">matplotlib.pyplot as plt</span> 
+        <br><span class="teks-skyblue">histo = plt.hist(df_swing['dem_share'])</span>
+        <br><span class="teks-skyblue">histo = plt.ylabel('number of counties')</span>
+        <br><span class="teks-skyblue">histo = plt.title('2008 Election')</span>
+        <br><span class="teks-sandybrown">plt.show</span>
+    </p>
+    <p>Output kode di atas adalah sebagai berikut:</p>
+    <iframe src="https://drive.google.com/file/d/175dindrTpM2uU7uI5KFGOBg-YtMf_I8D/preview" width="75%" height="500px" frame-border="0" alt="Gambar 2"></iframe>
+
+    <p>
+        Cara plotting histogram dengan call code <span class="teks-tomato">plt.hist</span> dan menentukan nilai label untuk <b>X</b> dengan menggunakan call code <span class="teks-tomato">plt.xlabel</span>, sedangan <span class="teks-tomato">plt.ylabel</span> digunakan untuk menentukan nilai <b>Y</b>.
+    </p>
+    <p>
+        Pada histogram pengguna dapat membagi data ke dalam beberapa kelompok atau rentang nilai yang disebut dengan bin (keranjang atau interval). 
+        Setiap bin mencakup data dalam rentang tertentu, dan histogram kemudian menunjukkan berapa banyak data yang berada di dalam masing-masing bin. Berikut adalah cara kerja binning:
+        <ol type="1">
+            <li>Data dikelompokkan ke dalam interval yang berurutan.</li>
+            <li>Lebar bin (interval) bisa sama atau berbeda tergantung pengaturan. Lebih banyak bin berarti interval lebih kecil, dan histogram akan lebih detail.</li>
+            <li>Semakin tinggi batang (bar) di histogram, semakin banyak data yang berada dalam rentang bin tersebut.</li>
+        </ol>
+    </p>
+    <p>
+        Untuk menetapkan jumlah bin pada histogram, pengguna bisa mengisi pada parameter bins di dalam <span class="teks-tomato">plt.hist</span> parameter seperti pada kode di bawah ini:
+    </p>
+    <p class="kotak" style="color: #fff;">
+        # setting the bins of a histogram
+        <br><span class="teks-skyblue">bin_edges = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]</span>
+        <br><span class="teks-skyblue">Histo_binned = plt.hist(df_swing['dem_share'], bins=bin_edges)</span>
+        <br><span class="teks-skyblue">plt.xlabel('Percent of vote for Obama')</span>
+        <br><span class="teks-skyblue">plt.ylabel('number of counties')</span>
+        <br><span class="teks-skyblue">plt.title('2008 Election')</span>
+        <br><span class="teks-sandybrown">plt.show()</span>
+    </p>
+    <p>Output kode di atas adalah sebagai berikut:</p>
+    <iframe src="https://drive.google.com/file/d/1o9vOSfN1vS46qMFJLpet7C3hRB-1PkFc/preview" width="75%" height="400px" frame-border="0" alt="Gambar 3"></iframe>
+
+    <p>Contoh lain mengatur binning adalah sebagai berikut:</p>
+    <p class="kotak" style="color: #fff;">
+        # setting the bins of a histogram
+        <br><span class="teks-skyblue">Histo_binned20 = plt.hist(df_swing['dem_share'], bins=20)</span>
+        <br><span class="teks-skyblue">plt.xlabel('Percent of vote for Obama')</span>
+        <br><span class="teks-skyblue">plt.ylabel('number of counties')</span>
+        <br><span class="teks-skyblue">plt.title('2008 Election')</span>
+        <br><span class="teks-sandybrown">plt.show()</span>
+    </p>
+    <p>Output kode di atas adalah sebagai berikut:</p>
+    <iframe src="https://drive.google.com/file/d/17xRagvbCBTMfsFBvsx7Uc51GV5g_6587/preview" width="75%" height="400px" frame-border="0" alt="Gambar 4"></iframe>
+
+    <p>
+        Semakin banyak jumlah binning, maka semakin detail histogram yang akan terbentuk seperti kode di bawah ini:
+    </p>
+    <p class="kotak" style="color: #fff;">
+        # setting the bins of a histogram
+        <br><span class="teks-skyblue">Histo_binned50 = plt.hist(df_swing['dem_share'], bins=50)</span>
+        <br><span class="teks-skyblue">plt.xlabel('Percent of vote for Obama')</span>
+        <br><span class="teks-skyblue">plt.ylabel('number of counties')</span>
+        <br><span class="teks-skyblue">plt.title('2008 Election')</span>
+        <br><span class="teks-sandybrown">plt.show()</span>
+    </p>
+    <p>Output kode di atas adalah sebagai berikut:</p>
+    <iframe src="https://drive.google.com/file/d/1NrmeSx22hGMFB90rtI1W-1uGWMcjN1Gq/preview" width="75%" height="450px" frame-border="0" alt="Gambar 5"></iframe>
+
+    
+    <!--seaborn-styling-->
+    <h1 id="seaborn-styling" style="margin-left: 1%;">Seaborn dan Mengatur Seaborn Styling</h1>
+    <p>
+        <b>Seaborn adalah pustaka visualisasi data yang dibangun di atas Matplotlib. Seaborn dirancang untuk membuat grafik statistik lebih mudah dibuat dan lebih menarik secara visual, terutama ketika bekerja dengan dataset besar dan kompleks.</b>
+    </p>
+    <p>
+        Seaborn menyediakan berbagai macam tipe grafik seperti histogram, scatter plot, box plot, heatmap, dan banyak lagi. Keunggulannya terletak pada tampilan default yang sudah rapi dan stylish, serta integrasi yang kuat dengan pandas DataFrames. 
+        Untuk mengatur gaya (style) pada Seaborn dapat menggunakan metode <span class="teks-tomato">sns.set_style(‘nama_style’)</span>. Berikut nama style yang tersedia dalam seaborn library:
+        <ol type="1" class="teks-tomato">
+            <li>darkgrid</li>
+            <li>whitegrid</li>
+            <li>dark</li>
+            <li>white</li>
+            <li>ticks</li>
+        </ol>
+    </p>
+    <p>Berikut adalah contoh kode mengatur gaya (style) pada seaborn:</p>
+    <p class="kotak" style="color: #fff;">
+        <span class="teks-sandybrown">import seaborn as sns</span>
+        <br># set style
+        <br><span class="teks-skyblue">sns.set_style('darkgrid')</span>
+        <br># plotting
+        <br><span class="teks-skyblue">histo_darkgrid = plt.hist(df_swing['dem_share'])</span>
+        <br><span class="teks-skyblue">histo_darkgrid = plt.xlabel('Percent of vote for Obama')</span>
+        <br><span class="teks-skyblue">histo_darkgrid = plt.ylabel('number of counties')</span>
+        <br><span class="teks-skyblue">histo_darkgrid = plt.title('2008 Election')</span>
+        <br><span class="teks-sandybrown">plt.show()</span>
+    </p>
+    <p>Output kode di atas adalah sebagai berikut:</p>
+    <iframe src="https://drive.google.com/file/d/1dbBNUmboWPytHpQL0EjVO7pwsry-iLee/preview" width="75%" height="500px" frame-border="0" alt="Gambar 6"></iframe>
+
+   
+    <!--bee-swarm-plot-->
+    <h1 id="bee-swarm-plot" style="margin-left: 1%;">Bee Swarm Plot</h1>
+    <p>
+        <b>Bee Swarm Plot adalah jenis plot yang digunakan untuk memvisualisasikan distribusi data, mirip dengan histogram, tetapi alih-alih menampilkan data dalam bentuk batang (bar) yang mengelompokkan data ke dalam interval (bin), Bee Swarm Plot menampilkan setiap titik data secara individual.</b>
+    </p>
+    <p>
+        Setiap titik dalam Bee Swarm Plot mewakili satu nilai data, dan penempatannya sejajar secara horizontal berdasarkan kategorinya dan secara vertikal berdasarkan nilai. Dengan kata lain, ini membantu melihat distribusi data pada sumbu kategoris, tetapi lebih mudah dibaca karena titik-titik diatur sedemikian rupa sehingga tidak ada tumpang tindih. 
+        Bee Swarm Plot sangat berguna untuk:
+        <ol type="1">
+            <li>Menunjukkan distribusi data secara rinci untuk masing-masing kategori.</li>
+            <li>Membandingkan distribusi di antara beberapa kelompok.</li>
+            <li>Melihat outlier atau nilai-nilai yang sangat berbeda dari kebanyakan data dalam kategori tertentu.</li>
+        </ol>
+    </p>
+    <p>Berikut adalah contoh untuk membangun Bee Swarm plot pada python:</p>
+    <p class="kotak" style="color: #fff;">
+        # bee swarm plot
+        <br><span class="teks-skyblue">Bee_swarm = sns.swarmplot(x='state', y='dem_share', data=df_swing, hue='state')</span>
+        <br><span class="teks-skyblue">Bee_swarm = plt.xlabel('state')</span>
+        <br><span class="teks-skyblue">Bee_swarm = plt.ylabel('percent of vote for Obama')</span>
+        <br><span class="teks-skyblue">Bee_swarm = plt.title('2008 Election')</span>
+        <br><span class="teks-sandybrown">plt.show()</span>
+    </p>
+    <p>Output kode di atas adalah sebagai berikut:</p>
+    <iframe src="https://drive.google.com/file/d/1NTp75AJzWXTAwJfEz8LrSLLU9zwgxO3X/preview" width="75%" height="500px" frame-border="0" alt="Gambar 7"></iframe>
+
+
+    <!--bee-swarm-plot-->
+    <h1 id="ecdf" style="margin-left: 1%;">Empirical Cumulative Distribution Function (ECDF)</h1>
+    <p>
+        <b>Empirical Cumulative Distribution Function (ECDF) adalah representasi empiris dari fungsi distribusi kumulatif (CDF) yang digunakan untuk memperlihatkan distribusi data secara kumulatif.</b>
+    </p>
+    <p>
+        ECDF menunjukkan proporsi atau frekuensi kumulatif dari nilai data yang lebih kecil atau sama dengan nilai tertentu, sehingga memungkinkan pengguna untuk melihat pola distribusi data secara keseluruhan. 
+        Berikut adalah cara kerja ECDF adalah sebagai berikut:
+        <ol type="1">
+            <li>Sumbu X: Menampilkan nilai data dari dataset.</li>
+            <li>Sumbu Y: Menampilkan proporsi kumulatif (dalam bentuk persentase atau probabilitas) dari data yang kurang dari atau sama dengan nilai pada sumbu X.</li>
+        </ol>
+    </p>
+    <p>
+        ECDF memplot semua titik data secara langsung, tanpa perlu membuat bin seperti pada histogram. Ini membuat ECDF lebih detail dalam menunjukkan distribusi data karena setiap titik data berkontribusi pada kurva kumulatif. 
+        Berikut adalah contoh membentuk plot ECDF:
+    </p>
+    <p class="kotak" style="color: #fff;">
+        # making an ECDF
+        <br><span class="teks-sandybrown">import numpy as np</span>
+        <br><span class="teks-skyblue">x = np.sort(df_swing['dem_share'])</span>
+        <br><span class="teks-skyblue">y = np.arange(1, len(x)+1) / len(x)</span>
+        <br><span class="teks-skyblue">ECDF = plt.plot(x, y, marker='.', linestyle='none')</span>
+        <br><span class="teks-skyblue">ECDF = plt.xlabel('percent of vote for Obama')</span>
+        <br><span class="teks-skyblue">ECDF = plt.ylabel('ECDF')</span>
+        <br><span class="teks-skyblue">ECDF = plt.title('2008 Election')</span>
+        <br><span class="teks-skyblue">plt.margins(0.02)</span> # keeps data off plot edges
+        <br><span class="teks-sandybrown">plt.show()</span>
+    </p>
+    <p>Output kode di atas adalah sebagai berikut:</p>
+    <iframe src="https://drive.google.com/file/d/1Wu5UM6o1AnkvaJScrIUwEqER8d-Er62T/preview" width="75%" height="400px" frame-border="0" alt="Gambar 8"></iframe>
+
+    <p>
+        Contoh interpretasi dari ECDF yang telah kita plot seperti gambar di atas:
+        <ol type="1">
+            <li>Perkiraan persentase yang vote obama di “state” OH merupakan yang terendah karena ECDFnya ada di bawah 0.1 dan rentang percentase vote for obama di bawah 10.</li>
+            <li>Perkiraan persentase vote obama tertinggi ada di “state” PA, karena persentase vote untuk obama lebih dari 80 dan ECDF juga menyentuh 1.</li>
+        </ol>
+    </p>
+
+
+    <!--ringkasan-statistik-->
+    <h1 id="ringkasan-statistik" style="margin-left: 1%;">Mengenal Ringkasan Statistik</h1>
+    <p>
+        <b>Ringkasan statistik adalah metode untuk menganalisis dan menyajikan informasi dari data secara ringkas, memberikan gambaran umum tentang karakteristik data tersebut</b>. Tujuan dari ringkasan statistik adalah untuk memahami pola dan distribusi data tanpa harus melihat semua titik data secara individual. 
+        Berikut adalah beberapa elemen penting dari ringkasan statistik:
+    </p>
+    <ol type="1" id="rata-rata" style="font-size: 24px; color: #4471C4; font-weight: bold;">
+        <li id="rata-rata">Rata-rata (Mean)</li>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Rata-rata atau mean adalah ukuran pemusatan yang paling umum digunakan dalam statistik untuk menggambarkan nilai tengah dari sekumpulan data</b>. Rata-rata memberikan informasi tentang nilai yang representatif dari data tersebut, sehingga membantu dalam memahami distribusi data secara keseluruhan. 
+            Berikut adalah contoh kode untuk mencari rata-rata:
+        </p>
+        <p class="kotak" style="color: #fff;">
+            # mean vote percentage
+            <br><span class="teks-sandybrown">import numpy as np</span>
+            <br><span class="teks-skyblue">dem_share_PA = df_swing[df_swing['state'] == 'PA']['dem_share']</span>
+            <br><span class="teks-sandybrown">np.mean(dem_share_PA)</span>
+        </p>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">Output kode di atas adalah sebagai berikut:</p>
+        <p class="kotak" style="color: #fff;">
+            45.476417910447765
+        </p>
+
+        <li id="median">Median</li>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            Median adalah ukuran pemusatan data yang menunjukkan nilai tengah dari sekumpulan data setelah diurutkan. Median membagi dataset menjadi dua bagian yang sama, di mana 50% nilai berada di bawah median dan 50% berada di atas median. 
+            Median memberikan informasi tentang posisi data dalam distribusi dan sering digunakan untuk menggambarkan data yang memiliki nilai ekstrem (outlier) atau distribusi yang tidak simetris. 
+            Berikut adalah contoh kode untuk mencari median:
+        </p>
+        <p class="kotak" style="color: #fff;">
+            # computing the median
+            <br><span class="teks-skyblue">dem_share_PA = df_swing[df_swing['state'] == 'PA']['dem_share']</span>
+            <br><span class="teks-sandybrown">np.median(dem_share_PA)</span>
+        </p>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">Output kode diatas adalah sebagai berikut</p>
+        <p class="kotak" style="color: #fff;">
+            44.03
+        </p>
+
+        <li id="inter-quartile-range">Inter Quartile Range dan Percentile pada ECDF</li>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Inter Quartile Range (IQR) adalah ukuran statistik yang menggambarkan rentang nilai antara kuartil pertama (Q1) dan kuartil ketiga (Q3) dari suatu dataset</b>. IQR memberikan informasi tentang sebaran data dan merupakan alat yang berguna untuk mendeteksi outlier. 
+            Kuartil pertama (Q1) adalah nilai yang memisahkan 25% dari data terendah, ini adalah median dari setengah bagian bawah dataset. 
+            Kuartil ketiga (Q3) adalah nilai yang memisahkan 25% dari data tertinggi, ini adalah median dari setengah bagian atas dataset.
+        </p>
+        <iframe src="https://drive.google.com/file/d/1S3F_f2Q8MU-6awbjmCbclNuC1RGaoYZH/preview" width="75%" height="300px" frame-border="0" alt="Gambar 9"></iframe>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Percentile adalah ukuran statistik yang menunjukkan nilai di bawah persentase tertentu dari dataset</b>. Misalnya, persentil ke-25 (P25) adalah nilai di mana 25% dari data berada di bawahnya. Dalam konteks Empirical Cumulative Distribution Function (ECDF), percentiles memberikan informasi tentang distribusi kumulatif data. 
+            Berikut adalah contoh kode mencari IQR maupun Percentile pada python:
+        </p>
+        <p class="kotak" style="color: #fff;">
+            # computing percentiles
+            <br><span class="teks-sandybrown">import numpy as np</span>
+            <br><span class="teks-skyblue">np.percentile(df_swing['dem_share'], [25, 50, 75])</span>
+        </p>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">Output program di atas adalah sebagai berikut:</p>
+        <p class="kotak" style="color: #fff;">
+            array([37.3025, 43.185 , 49.925 ])
+        </p>
+        
+        <li id="outlier">Outlier</li>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Outlier adalah nilai yang berbeda secara signifikan dari sebagian besar nilai dalam dataset</b>. Outlier dapat muncul karena variasi dalam data, kesalahan pengukuran, atau mungkin karena kondisi unik yang menghasilkan nilai yang sangat tinggi atau rendah. 
+            Karakteristik outlier adalah sebagai berikut:
+            <ol type="a" style="color: #000; font-weight: normal; margin-left: 3%;">
+                <li>Pemisahan Jauh dari Data Lain: Outlier biasanya berada jauh dari rentang nilai yang umum atau nilai median dari dataset.</li>
+                <li>Memengaruhi Analisis: Outlier dapat memengaruhi analisis statistik, seperti rata-rata, varians, dan regresi, sehingga dapat memberikan gambaran yang tidak akurat tentang data secara keseluruhan.</li>
+            </ol>
+        </p>
+
+        <li id="variansi-standar-deviasi">Variansi dan Standar Deviasi</li>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Variansi dan standar deviasi adalah dua ukuran statistik yang digunakan untuk menggambarkan sebaran atau dispersi data dalam suatu dataset. Keduanya memberikan informasi tentang seberapa jauh nilai-nilai dalam dataset menyimpang dari rata-rata.</b>
+        </p>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            Variansi mengukur seberapa jauh setiap nilai dalam dataset dari rata-rata dan menunjukkan seberapa besar penyebaran data tersebut. Semakin tinggi variansi, semakin besar penyebaran nilai-nilai dalam dataset. 
+            Untuk dataset dengan nnn nilai, variansi (σ² untuk populasi dan s² untuk sampel) dihitung sebagai berikut:
+            <ol type="a" style="color: #000; font-weight: normal; margin-left: 3%;">
+                <li>Populasi</li>
+                <iframe src="https://drive.google.com/file/d/1ROViBWCHO-zKRnpFyzlPpN904jxmB8ir/preview" width="45%" height="150px" frame-border="0" alt="Rumus 1"></iframe>
+
+                <li>Sampel</li>
+                <iframe src="https://drive.google.com/file/d/1NCzQVDquvoSoddjGNF0UH4_asgEhvcR_/preview" width="45%" height="150px" frame-border="0" alt="Rumus 2"></iframe>
+                <br>di mana:
+                <ul type="disc" style="margin-left: 7%;">
+                    <li>x<sub>i</sub> = setiap nilai dalam dataset</li>
+                    <li><span class="garis-bawah">u</span> = rata-rata populasi</li>
+                    <li>x = rata-rata sampel</li>
+                    <li>N = jumlah total nilai populasi</li>
+                    <li>n = jumlah total nilai sampel</li>
+                </ul>
+                
+            </ol>        
+        </p>
+
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Standar deviasi adalah akar kuadrat dari variansi dan memberikan ukuran sebaran yang lebih langsung dan mudah diinterpretasikan karena berada dalam unit yang sama dengan data asli</b>. 
+            Standar deviasi (σ untuk populasi dan s untuk sampel) dihitung sebagai berikut:
+            <ol type="a" style="color: #000; font-weight: normal; margin-left: 3%;">
+                <li>Populasi</li>
+                <iframe src="https://drive.google.com/file/d/1tfG1-ZbKnWo87ZQnsDgtNKDXz9tJmhLb/preview" width="45%" height="150px" frame-border="0" alt="Rumus 3"></iframe>
+
+                <li>Sampel</li>
+                <iframe src="https://drive.google.com/file/d/1KArnvAY4zH-RFh4dvD2_dDeVBUQMnnwI/preview" width="45%" height="150px" frame-border="0" alt="Rumus 4"></iframe>
+            </ol>
+        </p>
+
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            Berikut adalah contoh kode mencari variansi pada python:
+        </p>
+        <p class="kotak" style="color: #fff;">
+            # computing the variance
+            <br><span class="teks-skyblue">dem_share_FL = df_swing[df_swing['state'] == 'FL']['dem_share']</span>
+            <br><span class="teks-sandybrown">np.var(dem_share_FL)</span>
+        </p>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            Output program di atas adalah sebagai berikut:
+        </p>
+        <p class="kotak" style="color: #fff;">
+            147.44278618846067
+        </p>
+
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            Berikut adalah contoh kode mencari standar deviasi pada python:
+        </p>
+        <p class="kotak" style="color: #fff;">
+            # computing the standard deviation
+            <br><span class="teks-skyblue">dem_share_FL = df_swing[df_swing['state'] == 'FL']['dem_share']</span>
+            <br><span class="teks-sandybrown">np.std(dem_share_FL)</span>
+        </p>
+        <p class="kotak" style="color: #fff;">
+            12.142602117687158
+        </p>
+
+        <li id="kovariansi">Kovariansi</li>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Kovariansi adalah ukuran statistik yang menggambarkan hubungan antara dua variabel</b>. Kovariansi mengukur seberapa banyak dua variabel berubah bersama. 
+            Jika variabel cenderung meningkat atau menurun secara bersamaan, kovariansi bernilai positif. Jika satu variabel meningkat sementara yang lainnya menurun, kovariansi bernilai negatif.
+        </p>
+        <iframe src="https://drive.google.com/file/d/1vrn02oYd6SzBMW9dHV3o8Cfb2DvHjc4u/preview" width="85%" height="250px" frame-border="0" alt="Gambar 10"></iframe>
+
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Kovariansi Positif</b> terjadi ketika X dan Y cenderung berada di atas atau di bawah rata-ratanya masing-masing secara bersamaan. Sebagai contoh, jika jumlah jam belajar tinggi, maka nilai ujian cenderung juga tinggi. 
+            Ini menunjukkan bahwa kedua variabel tersebut memiliki hubungan yang searah.
+        </p>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Kovariansi Negatif</b> terjadi jika nilai X tinggi sementara nilai Y rendah. Dalam hal ini, kovariansnya negatif, yang berarti terdapat hubungan negatif (antikorelasi) antara keduanya. 
+            Contohnya, jika seseorang menghabiskan banyak waktu untuk bermain game (nilai X tinggi), nilai ujian mereka mungkin rendah (nilai Y rendah), menunjukkan bahwa peningkatan pada satu variabel berhubungan dengan penurunan pada variabel lainnya.
+        </p>
+        
+        <li id="pearson-correlation">Pearson Correlation Coefficient</li>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            <b>Koefisien Korelasi Pearson adalah ukuran statistik yang digunakan untuk menentukan sejauh mana dua variabel berhubungan secara linier</b>. Koefisien ini mengukur kekuatan dan arah hubungan antara variabel-variabel tersebut. 
+            Berikut adalah karakteristik korelasi pearson:
+        </p>
+        <ol type="a" style="color: #000; font-weight: normal; margin-left: 3%;">
+            <li>
+                <b>Ukuran Dimensi</b>: Koefisien ini adalah ukuran yang lebih umum untuk menggambarkan bagaimana dua variabel bergantung satu sama lain. Koefisien korelasi Pearson harus berdimensi (tanpa unit).
+            </li>
+            <li>
+                <b>Perbandingan Variabilitas</b>: Koefisien ini membandingkan variabilitas dalam data akibat kodependensi (kovarians) dengan variabilitas yang melekat pada masing-masing variabel secara independen (standar deviasinya).
+            </li>
+            <li>
+                <b>Rentang Nilai</b>: Nilai koefisien berkisar antara -1 hingga 1:
+                <ul type="disc" style="margin-left: 7%;">
+                    <li>-1: Antikorelasi lengkap (ketika satu variabel meningkat, variabel lainnya menurun secara sempurna).</li>
+                    <li>1: Korelasi lengkap (ketika satu variabel meningkat, variabel lainnya juga meningkat secara sempurna).</li>
+                    <li>0: Tidak ada korelasi antara kedua variabel</li>
+                </ul>
+            </li>
+        </ol>
+
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            Berikut adalah contoh program untuk membangun nilai pearson correlation:
+        </p>
+        <p class="kotak" style="color: #fff;">
+            # Pearson correlation coefficient matrix
+            <br># select numerical columns where dtype is not object
+            <br><span class="teks-skyblue">df_num = df_swing.select_dtypes(exclude=[object])</span>
+            <br># pearson correlation coefficient matrix
+            <br><span class="teks-skyblue">corr_matrix = df_num.corr()</span>
+            <br><span class="teks-sandybrown">print(corr_matrix)</span>
+        </p>
+        <p style="color: #000; font-weight: normal; margin-left: 0;">
+            Output kode program di atas adalah sebagai berikut:
+        </p>
+        <iframe src="https://drive.google.com/file/d/1_ly6L24VjU46lC95XW5dfSPI6bAcRMW3/preview" width="85%" height="150px" frame-border="0" alt="Gambar ??"></iframe>
+        
+    </ol>
+
+
+    <!--box-plot-->
+    <h1 id="box-plot" style="margin-left: 1%;">Box Plot</h1>
+    <p>
+        <b>Box plot, juga dikenal sebagai diagram kotak, adalah alat visual yang digunakan untuk menggambarkan distribusi data berdasarkan lima angka ringkasan: nilai minimum, kuartil pertama (Q1), median (Q2), kuartil ketiga (Q3), dan nilai maksimum</b>. 
+        Box plot sangat berguna untuk melihat perbandingan antara distribusi data dari beberapa kelompok. Berikut adalah elemen pada boxplot:
+    </p>
+    <ul>
+        <li><b>Kotak</b>: Mewakili rentang interkuartil (IQR), yaitu jarak antara Q1 dan Q3. Kotak ini menunjukkan 50% data tengah.</li>
+        <li><b>Garis Tengah</b>: Garis di dalam kotak yang menunjukkan median (Q2) dari data.</li>
+        <li><b>Tendril (Whiskers)</b>: Garis yang membentang dari kotak menuju nilai maksimum dan minimum dalam dataset, dengan batasan tertentu. Tendril biasanya menjangkau nilai yang tidak lebih dari 1,5 kali IQR dari Q1 dan Q3.</li>
+        <li><b>Outlier</b>: Titik-titik yang terletak di luar tendril dianggap sebagai outlier. Outlier sering kali ditandai dengan titik atau simbol yang berbeda pada box plot.</li>
+    </ul>
+
+    <p style="margin-left: 1%;">
+        Berikut adalah contoh kode untuk membangun boxplot pada python:
+    </p>
+    <p class="kotak" style="color: #fff;">
+        # import library
+        <br><span class="teks-sandybrown">import matplotlib.pyplot as plt</span>
+        <br><span class="teks-sandybrown">import seaborn as sns</span>
+        <br># box plot
+        <br><span class="teks-skyblue">sns.boxplot(x='state', y='dem_share', data=df_swing, hue='state')</span>
+        <br><span class="teks-skyblue">plt.xlabel('state')</span>
+        <br><span class="teks-skyblue">plt.ylabel('percent of vote for Obama')</span>
+        <br><span class="teks-skyblue">plt.title('2008 Election')</span>
+        <br><span class="teks-sandybrown">plt.show()</span>
+    </p>
+
+    <p style="margin-left: 1%;">
+        Output kode di atas adalah sebagai berikut:
+    </p>
+    <iframe src="https://drive.google.com/file/d/1lckTvVzYRC_ozjopNhxqN06ecKyjyI0W/preview" width="75%" height="500px" frame-border="0" alt="Gambar 11"></iframe>
+
+
+    <p>
+        Berikut adalah video tutorial lengkap mengenai Exploratory Data Analysis & Statistical Summary pada Python:
+    </p>
+    <iframe src="https://drive.google.com/file/d/1ClCwOGZUX2AuTAondJvx-e9a383NPFAz/preview" width="100%" height="450px" style="margin-left: 1%;" frameborder="0" allow="autoplay; fullscreen; accelerometer; encrypted-media; gyroscope; picture-in-picture;" alt="video tutorial"></iframe>
+
+</div>
+
+</body>
+
+</html>
